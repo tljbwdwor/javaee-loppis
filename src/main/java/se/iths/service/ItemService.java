@@ -2,6 +2,8 @@ package se.iths.service;
 
 import se.iths.entity.Item;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -15,6 +17,18 @@ public class ItemService {
 
     public void createItem(Item item) {
         entityManager.persist(item);
+    }
+
+    // For demo purpose
+    @PostConstruct
+    public void itemClassCreate() {
+        System.out.println("Item service class created!");
+    }
+
+    // For demo purpose
+    @PreDestroy
+    public void itemClassDestroy() {
+        System.out.println("Item service class says goodbye for now!");
     }
 
     public void updateItem(Item item) {
@@ -32,6 +46,12 @@ public class ItemService {
     public void deleteItem(Long id) {
         Item foundItem = entityManager.find(Item.class, id);
         entityManager.remove(foundItem);
+    }
+
+    public Item updateName(Long id, String name) {
+        Item foundItem = entityManager.find(Item.class, id);
+        foundItem.setName(name);
+        return entityManager.merge(foundItem);
     }
 
 }
