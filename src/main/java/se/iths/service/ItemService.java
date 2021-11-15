@@ -15,20 +15,10 @@ public class ItemService {
     @PersistenceContext
     EntityManager entityManager;
 
+
+
     public void createItem(Item item) {
         entityManager.persist(item);
-    }
-
-    // For demo purpose
-    @PostConstruct
-    public void itemClassCreate() {
-        System.out.println("Item service class created!");
-    }
-
-    // For demo purpose
-    @PreDestroy
-    public void itemClassDestroy() {
-        System.out.println("Item service class says goodbye for now!");
     }
 
     public void updateItem(Item item) {
@@ -48,10 +38,26 @@ public class ItemService {
         entityManager.remove(foundItem);
     }
 
+    // PATCH
     public Item updateName(Long id, String name) {
         Item foundItem = entityManager.find(Item.class, id);
         foundItem.setName(name);
-        return entityManager.merge(foundItem);
+        // merge() behövs ej
+        // entityManager.merge(foundItem);
+        return foundItem;
+    }
+
+
+    // For demo purpose
+    @PostConstruct
+    public void itemClassCreate() {
+        System.out.println("Item service class created!");
+    }
+
+    // For demo purpose
+    @PreDestroy
+    public void itemClassDestroy() {
+        System.out.println("Item service class says goodbye for now!");
     }
 
 }

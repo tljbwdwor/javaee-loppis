@@ -1,12 +1,10 @@
 package se.iths.entity;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 @Entity
 public class Item {
@@ -23,19 +21,17 @@ public class Item {
     private int quantity;
     private double price;
     private LocalDate createdAt;
+    @ManyToOne
+    private User user;
 
-    // Denna metod körs innan objektet skrivs till DB
-    @PrePersist
-    public void getCurrentDate() {
-        setCreatedAt(LocalDate.now());
+    public Item(String name, String category, int quantity, double price) {
+        this.name = name;
+        this.category = category;
+        this.quantity = quantity;
+        this.price = price;
     }
 
-
-    // For demo purpose
-    @PostPersist
-    public void itemWasPersisted() {
-        System.out.println("Item was stored in DB");
-    }
+    public Item() {}
 
 
     public LocalDate getCreatedAt() {
@@ -44,6 +40,15 @@ public class Item {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
+    }
+
+    @JsonbTransient
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -62,6 +67,7 @@ public class Item {
         this.name = name;
     }
 
+//    @JsonbProperty("hejhejJU20")
     public String getCategory() {
         return category;
     }
@@ -85,4 +91,19 @@ public class Item {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    // Denna metod körs innan objektet skrivs till DB
+    @PrePersist
+    public void getCurrentDate() {
+        setCreatedAt(LocalDate.now());
+    }
+
+
+    // For demo purpose
+    @PostPersist
+    public void itemWasPersisted() {
+        System.out.println("Item was stored in DB");
+    }
+
+
 }
