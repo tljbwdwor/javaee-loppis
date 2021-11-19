@@ -73,4 +73,42 @@ public class ItemRest {
     }
 
 
+    //JPQL QUERIES
+
+    @Path("getallnames")
+    @GET
+    public List<Item> getAllNames() {
+        return itemService.getAllNames();
+    }
+
+    @Path("getallitemsbycategory")
+    @GET
+    public List<Item> getAllItemsByCategory() {
+        return itemService.getAllItemsSortedByCategory();
+    }
+
+    @Path("selectmaxprice")
+    @GET
+    public double selectMaxPrice() {
+        return itemService.selectMaxPrice();
+    }
+
+    @Path("getallwithnamedquery")
+    @GET
+    public List<Item> getAllWithNamesQuery() {
+        return itemService.getAllWithNamedQuery();
+    }
+
+    @Path("updateprice")
+    @GET
+    public void updatePrice() {
+        itemService.updatePriceWhere();
+    }
+
+    @Path("deleteexpensive")
+    @GET
+    public void deleteExpensive() {
+        itemService.deleteExpensive();
+    }
+
 }
