@@ -16,6 +16,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
+    public User(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+
+    public User() {}
+
     public void addItem(Item item) {
         items.add(item);
         item.setUser(this);

@@ -1,6 +1,5 @@
 package se.iths.entity;
 
-import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -42,7 +41,7 @@ public class Item {
         this.createdAt = createdAt;
     }
 
-    @JsonbTransient
+    //@JsonbTransient
     public User getUser() {
         return user;
     }
