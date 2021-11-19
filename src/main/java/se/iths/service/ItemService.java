@@ -7,6 +7,9 @@ import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -127,6 +130,27 @@ public class ItemService {
     public void deleteExpensive() {
         String query = "DELETE FROM Item i WHERE i.price > 200.00";
         entityManager.createQuery(query).executeUpdate();
+    }
+
+
+    //CRITERIA API QUERIES
+
+    //Get all items
+    public List<Item> getAllItemsCriteria() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
+        TypedQuery<Item> typedQuery = entityManager.createQuery(criteriaQuery);
+        return typedQuery.getResultList();
+    }
+
+    //Order by category
+    public List<Item> getAllItemsOrderByCategoryCriteria() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Item> criteriaQuery = criteriaBuilder.createQuery(Item.class);
+        Root<Item> item = criteriaQuery.from(Item.class);
+        criteriaQuery.orderBy(criteriaBuilder.asc(item.get("category")));
+        TypedQuery<Item> typedQuery = entityManager.createQuery(criteriaQuery);
+        return typedQuery.getResultList();
     }
 
 }

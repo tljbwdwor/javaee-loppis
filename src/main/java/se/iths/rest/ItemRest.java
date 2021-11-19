@@ -100,13 +100,13 @@ public class ItemRest {
     }
 
     @Path("updateprice")
-    @GET
+    @PATCH
     public void updatePrice() {
         itemService.updatePriceWhere();
     }
 
     @Path("deleteexpensive")
-    @GET
+    @DELETE
     public void deleteExpensive() {
         itemService.deleteExpensive();
     }
@@ -133,6 +133,18 @@ public class ItemRest {
     @GET
     public List<Item> getByPriceBetween(@PathParam("minPrice") double minPrice, @PathParam("maxPrice") double maxPrice) {
         return itemService.getAllItemsBetweenPrice(minPrice, maxPrice);
+    }
+
+    @Path("getallitemscriteria")
+    @GET
+    public List<Item> getAllItemsCriteriaQuery() {
+        return itemService.getAllItemsCriteria();
+    }
+
+    @Path("getallitemsbycategorycriteria")
+    @GET
+    public List<Item> getAllItemsByCategoryCriteria() {
+        return itemService.getAllItemsOrderByCategoryCriteria();
     }
 
 }
