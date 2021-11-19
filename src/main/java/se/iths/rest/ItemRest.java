@@ -111,4 +111,28 @@ public class ItemRest {
         itemService.deleteExpensive();
     }
 
+    @Path("getbyname.dq/{name}")
+    @GET
+    public List<Item> getByNameDynamic(@PathParam("name") String name) {
+        return itemService.getByNameDynamic(name);
+    }
+
+    @Path("getbyname.np/{name}")
+    @GET
+    public List<Item> getByNamedParam(@PathParam("name") String name) {
+        return itemService.getByNamedParameters(name);
+    }
+
+    @Path("getbyname.pp/{name}")
+    @GET
+    public List<Item> getByPositionalParam(@PathParam("name") String name) {
+        return itemService.getByNamePositionParameters(name);
+    }
+
+    @Path("getbypricebetween/{minPrice}/{maxPrice}")
+    @GET
+    public List<Item> getByPriceBetween(@PathParam("minPrice") double minPrice, @PathParam("maxPrice") double maxPrice) {
+        return itemService.getAllItemsBetweenPrice(minPrice, maxPrice);
+    }
+
 }
